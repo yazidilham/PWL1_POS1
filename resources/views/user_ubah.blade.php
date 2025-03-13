@@ -1,7 +1,7 @@
 <body>
     <h1>Form Tambah Data User</h1>
     <a href="{{ route('/user') }}">Kembali</a>
-    <form method="post" action="{{ route('/user/tambah_simpan') }}">
+    <form method="post" action="{{ route('/user/ubah_simpan',$data->user_id) }}">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         
