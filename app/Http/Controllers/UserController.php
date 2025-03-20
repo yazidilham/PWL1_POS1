@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LevelModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Monolog\Level;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -22,9 +23,11 @@ class UserController extends Controller
         ];
 
         $activeMenu = 'user'; // Set menu yang sedang aktif
+        $level = LevelModel::all();
 
         return view('user.index', [
             'breadcrumb' => $breadcrumb,
+            'level'      => $level,
             'page'       => $page,
             'activeMenu' => $activeMenu
         ]);
@@ -142,28 +145,39 @@ public function edit(string $id) {
 }
 
 // Menyimpan perubahan data user
-public function update(Request $request, string $id) {
-    $request->validate([
-        'username' => 'required|string|min:3|unique:users,username,' . $id . ',user_id',
-        'nama'     => 'required|string|max:100',
-        'password' => 'nullable|string|min:5',
-        'level_id' => 'required|integer'
-    ]);
+public function update(Request $request, int $id)
+    {
+        $request->validate([
+            'level_id' => 'required | integer',
+            'username' => 'required | string | min:3 | unique:m_user,username,' . $id . ',user_id',
+            'nama' => 'required | string | max:100',
+            'password' => 'nullable | min:5'
+        ]);
 
-    $user = UserModel::find($id);
+        $user = UserModel::find($id);
+        $user->level_id = $request->level_id;
+        $user->username = $request->username;
+        $user->nama = $request->nama;
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->save();
 
-    if (!$user) {
-        return redirect('/user')->with('error', 'User tidak ditemukan');
+        return redirect('/user')->with('success', 'Data user berhasil diubah');
     }
 
-    $user->update([
-        'username' => $request->username,
-        'nama'     => $request->nama,
-        'password' => $request->password ? bcrypt($request->password) : $user->password,
-        'level_id' => $request->level_id
-    ]);
-
-    return redirect('/user')->with('success', 'Data user berhasil diubah');
-}
+    public function destroy(int $id)
+    {
+        $check = UserModel::find($id);
+        if (!$check) {
+            return redirect('/user')->with('error', 'Data user tidak ditemukan');
+        }
+        try {
+            UserModel::destroy($id);
+            return redirect('/user')->with('success', 'Data user berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/user')->with('error', 'Data user tidak bisa dihapus karena masih terdapat data terkait');
+        }
+    }
 
 }
