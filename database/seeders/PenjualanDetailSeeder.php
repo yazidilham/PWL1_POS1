@@ -5,22 +5,34 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
-class PenjualanDetailSeeder extends Seeder
+class t_penjualan_detail extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $data = [];
+        // Ambil daftar penjualan dan barang dari database
+        $penjualan = DB::table('t_penjualan')->pluck('penjualan_id')->toArray();
+        $barang = DB::table('m_barang')->pluck('barang_id')->toArray();
 
-        for ($i = 1; $i <= 10; $i++) {
-            $data[] = ['detail_id' => ($i - 1) * 3 + 1, 'penjualan_id' => $i, 'barang_id' => 1, 'harga' => 500000, 'jumlah' => 1];
-            $data[] = ['detail_id' => ($i - 1) * 3 + 2, 'penjualan_id' => $i, 'barang_id' => 2, 'harga' => 300000, 'jumlah' => 2];
-            $data[] = ['detail_id' => ($i - 1) * 3 + 3, 'penjualan_id' => $i, 'barang_id' => 3, 'harga' => 75000, 'jumlah' => 3];
+        if (empty($penjualan) || empty($barang)) {
+            $this->command->warn('Tidak ada data di t_penjualan atau m_barang, seeder dihentikan.');
+            return;
         }
 
-        DB::table('t_penjualan_detail')->insert($data);
+        // Loop untuk menambahkan detail penjualan
+        foreach ($penjualan as $penjualan_id) {
+            DB::table('t_penjualan_detail')->insert([
+                'penjualan_id' => $penjualan_id,
+                'barang_id'    => $barang[array_rand($barang)], // Ambil barang secara acak
+                'harga'        => rand(5000, 50000),
+                'jumlah'       => rand(1, 5),
+                'created_at'   => now(),
+                'updated_at'   => now(),
+            ]);
+        }
     }
 }

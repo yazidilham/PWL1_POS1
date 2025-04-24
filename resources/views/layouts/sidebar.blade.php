@@ -57,12 +57,19 @@
           </a> 
         </li> 
         <li class="nav-item"> 
-          <a href="{{ url('/barang') }}" class="nav-link {{ ($activeMenu == 
+          <a href="{{ url('/penjualan') }}" class="nav-link {{ ($activeMenu == 
   'penjualan')? 'active' : '' }} "> 
             <i class="nav-icon fas fa-cash-register"></i> 
             <p>Sales Transactions</p> 
           </a> 
         </li> 
+        <li class="nav-item">
+          <a href="{{ url('/penjualan-detail') }}"
+              class="nav-link {{ $activeMenu == 'penjualan-detail' ? 'active' : '' }}">
+              <i class="nav-icon fas fa-shipping-fast"></i>
+              <p>Detail Penjualan</p>
+            </a>
+        </li>
       </ul> 
     </nav> 
   </div>
