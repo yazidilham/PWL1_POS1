@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('m_user', function (Blueprint $table) {
-            $table->id('user_id'); // Primary Key (PK)
-            $table->unsignedBigInteger('level_id'); // Foreign Key (FK) ke tabel m_level
-            $table->string('username', 20)->unique(); // Username maksimal 20 karakter, unik
-            $table->string('nama', 100); // Nama maksimal 100 karakter
-            $table->string('password', 255); // Password dengan panjang maksimal 255 karakter
-            $table->timestamps(); // Kolom created_at dan updated_at
-
-            // Definisi Foreign Key
-            $table->foreign('level_id')->references('level_id')->on('m_level')->onDelete('cascade');
-        });
+        if (!Schema::hasTable('detail_penjualan')) {
+            Schema::create('detail_penjualan', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('penjualan_id');
+                $table->unsignedBigInteger('barang_id');
+                $table->integer('harga');
+                $table->integer('jumlah');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_user');
+        Schema::dropIfExists('detail_penjualan');
     }
 };
