@@ -10,6 +10,7 @@ use App\Http\Controllers\DetailPenjualanController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 
 
@@ -318,4 +319,6 @@ Route::middleware(['auth'])->group(function () {
     //     Route::delete('/{id}', [PenjualanController::class, 'destroy']);
     // });
 
+    Route::get('/profile', [UserController::class, 'profile']);
+    Route::post('/profile/update-picture', [UserController::class, 'updateProfilePicture']);
 });
