@@ -38,67 +38,30 @@
 @endpush
 
 @push('js')
-            <script>
-                function modalAction(url = '') {
-                    $('#myModal').load(url, function () {
-                        $('#myModal').modal('show');
-                    });
-                }
-
-                var dataUser;
-                $(document).ready(function () {
-                    dataUser = $('#table_user').DataTable({
-                        serverSide: true,
-                        ajax: {
-                            url: "{{ url('penjualandetail/list') }}",
-                            dataType: "json",
-                            type: "POST",
-                            data: function (d) {
-                                d.level_id = $('#detail_id').val();
-                            }
-                        },
-                        columns: [{
-                            data: "DT_RowIndex",
-                            className: "text-center",
-                            orderable: false,
-                            searchable: false
-                        },
-                        {
-                            data: "penjualan_id",
-                            className: "",
-                            orderable: true,
-                            searchable: true
-                        },
-                        {
-                            data: "barang_id",
-                            className: "",
-                            orderable: true,
-                            searchable: true
-                        },
-                        {
-                            data: "harga",
-                            className: "",
-                            orderable: false,
-                            searchable: false
-                        },
-                        {
-                            data: "jumlah",
-                            className: "",
-                            orderable: false,
-                            searchable: false
-                        },
-                        {
-                            data: "action",
-                            className: "",
-                            orderable: false,
-                            searchable: false
-                        }
-                        ]
-                    });
-
-                    $('#level_id').on('change', function () {
-                        dataUser.ajax.reload();
-                    });
-                });
-            </script>
-        @endpush
+    <script>
+        function modalAction(url = '') {
+            $('#myModal').load(url, function () {
+                $('#myModal').modal('show');
+            });
+        }
+        var dataPenjualanDetail;
+        $(document).ready(function () {
+            dataPenjualanDetail = $('#table_penjualan_detail').DataTable({
+                serverSide: true,
+                ajax: {
+                    "url": "{{ url('detail_penjualan/list') }}",
+                    "dataType": "json",
+                    "type": "GET",
+                },
+                columns: [
+                    { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
+                    { data: "penjualan_id", className: "", orderable: true, searchable: true },
+                    { data: "barang_id", className: "", orderable: true, searchable: true },
+                    { data: "harga", className: "", orderable: true, searchable: true },
+                    { data: "jumlah", className: "", orderable: true, searchable: true },
+                    { data: "aksi", className: "", orderable: false, searchable: false }
+                ]
+            });
+        });
+    </script>
+@endpush

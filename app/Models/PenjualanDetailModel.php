@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\PenjualanModel;
-use App\Models\StokModel;
+use App\Models\BarangModel;
 
 class PenjualanDetailModel extends Model
 {

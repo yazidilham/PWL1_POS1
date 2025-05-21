@@ -8,6 +8,7 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DetailPenjualanController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PenjualanDetailController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -300,24 +301,24 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 
-    //penjualan detail
-    // Route::group(['prefix' => 'detail_penjualan'], function () {
-    //     Route::get('/', [DetailPenjualanController::class, 'index']);
-    //     Route::post('/list', [DetailPenjualanController::class, 'list']);
-    //     Route::get('/create', [DetailPenjualanController::class, 'create']);
-    //     Route::post('/', [DetailPenjualanController::class, 'store']);
-    //     Route::get('/create_ajax', [DetailPenjualanController::class, 'create_ajax']);
-    //     Route::post('/ajax', [DetailPenjualanController::class, 'store_ajax']);
-    //     Route::get('/{id}/show_ajax', [DetailPenjualanController::class, 'show_ajax']);
-    //     Route::get('/{id}', [DetailPenjualanController::class, 'show']);
-    //     Route::get('/{id}/edit', [DetailPenjualanController::class, 'edit']);
-    //     Route::put('/{id}', [DetailPenjualanController::class, 'update']);
-    //     Route::get('/{id}/edit_ajax', [DetailPenjualanController::class, 'edit_ajax']);
-    //     Route::put('/{id}/update_ajax', [DetailPenjualanController::class, 'update_ajax']);
-    //     Route::get('/{id}/delete_ajax', [DetailPenjualanController::class, 'confirm_ajax']);
-    //     Route::delete('/{id}/delete_ajax', [DetailPenjualanController::class, 'delete_ajax']);
-    //     Route::delete('/{id}', [PenjualanController::class, 'destroy']);
-    // });
+    Route::group(['prefix' => 'detail_penjualan'], function () {
+        Route::get('/', [PenjualanDetailController::class, 'index']);
+        Route::get('/create', [PenjualanDetailController::class, 'create']);
+        Route::post('/', [PenjualanDetailController::class, 'store']);
+        Route::get('/create_ajax', [PenjualanDetailController::class, 'create_ajax']);
+        Route::post('/ajax', [PenjualanDetailController::class, 'store_ajax']);
+        Route::get('/{id}/show_ajax', [PenjualanDetailController::class, 'show_ajax']);
+        Route::get('/{id}', [PenjualanDetailController::class, 'show']);
+        Route::get('/{id}/edit', [PenjualanDetailController::class, 'edit']);
+        Route::put('/{id}', [PenjualanDetailController::class, 'update']);
+        Route::get('/{id}/edit_ajax', [PenjualanDetailController::class, 'edit_ajax']);
+        Route::put('/{id}/update_ajax', [PenjualanDetailController::class, 'update_ajax']);
+        Route::get('/{id}/delete_ajax', [PenjualanDetailController::class, 'confirm_ajax']);
+        Route::delete('/{id}/delete_ajax', [PenjualanDetailController::class, 'delete_ajax']);
+        Route::delete('/{id}', [PenjualanController::class, 'destroy']);
+        Route::get('/list', [PenjualanDetailController::class, 'list']);
+
+    });
 
     Route::get('/profile', [UserController::class, 'profile']);
     Route::post('/profile/update-picture', [UserController::class, 'updateProfilePicture']);

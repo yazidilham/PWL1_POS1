@@ -7,7 +7,7 @@
         <div class="card-tools"></div>
     </div>
     <div class="card-body">
-        <form method="POST" action="{{ route('penjualan-detail.store') }}" class="form-horizontal">
+        <form method="POST" action="{{ route('detail_penjualan.store') }}" class="form-horizontal">
             @csrf
 
             {{-- Penjualan --}}
@@ -77,7 +77,7 @@
         e.preventDefault();
 
         $.ajax({
-            url: "{{ url('/penjualan-detail/ajax') }}",
+            url: "{{ url('/detail_penjualan/ajax') }}",
             method: 'POST',
             data: $(this).serialize(),
             success: function (res) {

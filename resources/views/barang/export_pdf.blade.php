@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!-- filepath: /Applications/MAMP/htdocs/PWL_POS/resources/views/barang/export_pdf.blade.php -->
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
         body {
             font-family: "Times New Roman", Times, serif;
@@ -60,14 +60,24 @@
     <table class="border-bottom-header">
         <tr>
             <td width="15%" class="text-center">
-                <img src="{{ asset('polinema-bw.png') }}" alt="Logo">
+                <img src="{{ asset('images/poltek.jpg') }}" width="100%" alt="Logo">
             </td>
             <td width="85%">
-                <span class="text-center d-block font-11 font-bold mb-1">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</span>
-                <span class="text-center d-block font-13 font-bold mb-1">POLITEKNIK NEGERI MALANG</span>
-                <span class="text-center d-block font-10">Jl. Soekarno-Hatta No. 9 Malang 65141</span>
-                <span class="text-center d-block font-10">Telepon (0341) 404424 Pes. 101-105, 0341-404420, Fax. (0341) 404420</span>
-                <span class="text-center d-block font-10">Laman: www.polinema.ac.id</span>
+                <span class="text-center d-block font-11 font-bold mb-1">
+                    KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI
+                </span>
+                <span class="text-center d-block font-13 font-bold mb-1">
+                    POLITEKNIK NEGERI MALANG
+                </span>
+                <span class="text-center d-block font-10">
+                    Jl. Soekarno-Hatta No. 9 Malang 65141
+                </span>
+                <span class="text-center d-block font-10">
+                    Telepon (0341) 404424 Pes. 101-105, 0341-404420, Fax. (0341) 404420
+                </span>
+                <span class="text-center d-block font-10">
+                    Laman: www.polinema.ac.id
+                </span>
             </td>
         </tr>
     </table>
@@ -93,7 +103,7 @@
                     <td>{{ $b->barang_nama }}</td>
                     <td class="text-right">{{ number_format($b->harga_beli, 0, ',', '.') }}</td>
                     <td class="text-right">{{ number_format($b->harga_jual, 0, ',', '.') }}</td>
-                    <td>{{ $b->kategori->kategori_nama }}</td>
+                    <td>{{ $b->kategori->kategori_name ?? 'N/A' }}</td>
                 </tr>
             @endforeach
         </tbody>
